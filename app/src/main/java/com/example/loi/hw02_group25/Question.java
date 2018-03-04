@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Question extends AppCompatActivity {
 
-    int position = 0;
+    public static int position = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,32 +29,20 @@ public class Question extends AppCompatActivity {
         final RadioButton rb3 = findViewById(R.id.question3);
         final RadioButton rb4 = findViewById(R.id.question4);
 
-        final CountDownTimer timer = new CountDownTimer(30000, 1000) {
+        Trivia question = MainActivity.triviaArrayList.get(position);
+        new NextQuestionAsync(triviaImage, textQuestion, rb1, rb2, rb3, rb4, question ).execute();
+
+        final CountDownTimer timer = new CountDownTimer(120000, 1000) {
             @Override
             public void onTick(long l) {
-                timeText.setText("Time Left:" + l/ 1000);
+                timeText.setText("Time Left: " + (l/ 1000) + " seconds");
             }
 
             @Override
             public void onFinish() {
-                position += 1;
+                //intent to take to stats screen
             }
         }.start();
-
-
-        Trivia question = MainActivity.triviaArrayList.get(position);
-
-        if(question.getImageUrl() != null){
-
-            new ImageDownloaderTask(triviaImage).execute(question.getImageUrl());
-        }
-
-        textQuestion.setText(question.getText());
-        rb1.setText(question.getQuestions(0));
-        rb2.setText(question.getQuestions(1));
-        rb3.setText(question.getQuestions(2));
-        rb4.setText(question.getQuestions(3));
-
 
 
         findViewById(R.id.QuitQuestionButton).setOnClickListener(new View.OnClickListener() {
@@ -70,6 +58,7 @@ public class Question extends AppCompatActivity {
 
                 position += 1;
                 Trivia question = MainActivity.triviaArrayList.get(position);
+
                 rb1.setChecked(false);
                 rb2.setChecked(false);
                 rb3.setChecked(false);
