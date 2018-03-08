@@ -50,7 +50,10 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
         rb1.setText(question.getQuestions(0));
         rb2.setText(question.getQuestions(1));
         rb3.setText(question.getQuestions(2));
-        rb4.setText(question.getQuestions(3));
+
+        if (question.getChoiceSize() > 3) {
+            rb4.setText(question.getQuestions(3));
+        }
 
         if(rb4.getText().equals("")){ //if blank remove radio button
             rb4.setVisibility(View.GONE);

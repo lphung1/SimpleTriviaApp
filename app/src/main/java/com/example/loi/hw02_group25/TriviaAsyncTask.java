@@ -2,14 +2,9 @@ package com.example.loi.hw02_group25;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v4.widget.CircularProgressDrawable;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
@@ -72,11 +67,12 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
                     {
                         t.setImageUrl(questionsJSONObject.optString("image"));
                     }
-                    t.setQuestions(choicesJSONObject.getJSONArray("choice"));
+                    t.setChoices(choicesJSONObject.getJSONArray("choice"));
 
-                    Log.d("JsonName", "" + questionsJSONObject.getString("text"));
-                    Log.d("Jsonid", "" + questionsJSONObject.getString("id"));
+                    Log.d("Question", "" + questionsJSONObject.getString("text"));
+                    Log.d("Qnumber", "" + questionsJSONObject.getString("id"));
                     Log.d("JsonChoice", "" + choicesJSONObject.getString("choice"));
+                    Log.d("Answer", "" + choicesJSONObject.getString("answer"));
 
 
                     result.add(t);

@@ -9,8 +9,8 @@ import org.json.JSONException;
 
 public class Trivia {
 
-    String id, text, imageUrl, answer = null;
-    JSONArray questions;
+    private String id, text, imageUrl, answer = null;
+    private JSONArray choices = null;
 
     public Trivia() {
     }
@@ -41,15 +41,19 @@ public class Trivia {
 
     public String getQuestions(int i) {
         try {
-            return questions.get(i).toString();
+            return choices.get(i).toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void setQuestions(JSONArray questions) {
-        this.questions = questions;
+    public int getChoiceSize(){
+        return choices.length();
+    }
+
+    public void setChoices(JSONArray choices) {
+        this.choices = choices;
     }
 
     public String getAnswer() {
