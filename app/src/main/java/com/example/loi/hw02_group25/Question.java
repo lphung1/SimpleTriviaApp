@@ -21,6 +21,7 @@ public class Question extends AppCompatActivity {
     Trivia question = null;
     public int position = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class Question extends AppCompatActivity {
         final ImageView triviaImage = findViewById(R.id.questionImage);
         final TextView textQuestion = findViewById(R.id.questionDescriptionText);
         final TextView timeText = findViewById(R.id.timeLeftText);
+        final TextView textQuestionNumber = findViewById(R.id.questionNumberText);
         final RadioButton rb1 = findViewById(R.id.question1);
         final RadioButton rb2 = findViewById(R.id.question2);
         final RadioButton rb3 = findViewById(R.id.question3);
@@ -38,7 +40,7 @@ public class Question extends AppCompatActivity {
         question = MainActivity.triviaArrayList.get(position);
 
 
-        new NextQuestionAsync(triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
+        new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
 
         final CountDownTimer timer = new CountDownTimer(120000, 1000) {
             @Override
@@ -68,13 +70,17 @@ public class Question extends AppCompatActivity {
 
                 RadioGroup rg = findViewById(R.id.radioGroup);
 
+                Log.d("button", "next button clicked");
+                Log.d("Answers", "" + question.getAnswer());
+                Log.d("Selected answer", "" + getAnswer(rb1, rb2, rb3, rb4));
 
                 if(position == (MainActivity.triviaArrayList.size() - 1)){
 
                     Intent i = new Intent(Question.this, Results.class);
                     i.putExtra("c", (int) correctAnswers);
+                    Log.d("CorrectQ", "" + correctAnswers);
+                    timer.cancel();
                     startActivity(i);
-
 
                 }
 
@@ -83,12 +89,13 @@ public class Question extends AppCompatActivity {
                     correctAnswers+=1;
 
                 }
+
                 Log.d("Answers", "" + question.getAnswer());
 
                 position += 1;
                 Trivia question = MainActivity.triviaArrayList.get(position);
                 rg.clearCheck();
-                new NextQuestionAsync(triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
+                new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
 
 
             }

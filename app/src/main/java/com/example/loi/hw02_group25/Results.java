@@ -39,14 +39,15 @@ public class Results extends AppCompatActivity {
         findViewById(R.id.quitStatsButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent i = new Intent(Results.this, MainActivity.class);
+                startActivity(i);
             }
         });
 
         findViewById(R.id.tryAgainButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Results.this, MainActivity.class));
+                startActivity(new Intent(Results.this, Question.class));
             }
         });
 

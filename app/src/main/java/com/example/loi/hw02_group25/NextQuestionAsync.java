@@ -19,14 +19,16 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
     RadioButton rb3;
     RadioButton rb4;
     Trivia question;
+    TextView questionNumber;
 
-    public NextQuestionAsync(ImageView triviaImage, TextView textQuestion, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) {
+    public NextQuestionAsync(TextView questionNumber, ImageView triviaImage, TextView textQuestion, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) {
         this.triviaImage = triviaImage;
         this.textQuestion = textQuestion;
         this.rb1 = rb1;
         this.rb2 = rb2;
         this.rb3 = rb3;
         this.rb4 = rb4;
+        this.questionNumber = questionNumber;
     }
 
     @Override
@@ -47,11 +49,13 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
         }
 
         textQuestion.setText(question.getText());
+        questionNumber.setText("Q" + (question.getId() + 1));
         rb1.setText(question.getQuestions(0));
         rb2.setText(question.getQuestions(1));
         rb3.setText(question.getQuestions(2));
-        rb4.setText(question.getQuestions(3));
-
+        if (rb4 != null) {
+            rb4.setText(question.getQuestions(3));
+        }
         if(rb4.getText().equals("")){ //if blank remove radio button
             rb4.setVisibility(View.GONE);
         }
