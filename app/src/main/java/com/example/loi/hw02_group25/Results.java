@@ -8,12 +8,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class Results extends AppCompatActivity {
 
     int correct, total = 0;
-    float percent;
+    int percent;
 
 
 
@@ -26,21 +24,21 @@ public class Results extends AppCompatActivity {
 
         TextView percentageCorrect = (TextView) findViewById(R.id.percentageText);
 
-        if (getIntent() != null && getIntent().getExtras() != null) {
+        if (getIntent() != null && getIntent().getExtras() != null) { //getting data using intent
 
             Log.d("Intent recieved", "Extra =" + getIntent().getExtras().getInt("c"));
             correct = (getIntent().getExtras().getInt("c"));
             total = (MainActivity.triviaArrayList.size());
             percent = (correct * 100) / total;
 
-            percentageCorrect.setText(  percent + "&" );
+            percentageCorrect.setText(  percent + "%" );
 
             pb.setMax(total);
             pb.setProgress(correct);
         }
-        else{
-            Log.d("Intent not received", "Correct= " + Question.correctAnswers);
-            correct = Question.correctAnswers;
+        else{ //different way of getting data, using global variable, not ideal
+            Log.d("Intent not received", "Correct= " + QuestionActivity.correctAnswers);
+            correct = QuestionActivity.correctAnswers;
             total = MainActivity.triviaArrayList.size();
             percent = (correct * 100) / total;
             percentageCorrect.setText(percent + "%");
@@ -61,7 +59,7 @@ public class Results extends AppCompatActivity {
         findViewById(R.id.tryAgainButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Results.this, Question.class));
+                startActivity(new Intent(Results.this, QuestionActivity.class));
             }
         });
 

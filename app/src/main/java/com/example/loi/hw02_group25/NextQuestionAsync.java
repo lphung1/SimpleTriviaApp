@@ -10,7 +10,7 @@ import android.widget.TextView;
  * Created by Loi on 3/4/2018.
  */
 
-public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
+public class NextQuestionAsync extends AsyncTask<Question, Void, Void> {
 
     ImageView triviaImage;
     TextView textQuestion;
@@ -18,7 +18,7 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
     RadioButton rb2;
     RadioButton rb3;
     RadioButton rb4;
-    Trivia question;
+    Question question;
     TextView questionNumber;
 
     public NextQuestionAsync(TextView questionNumber, ImageView triviaImage, TextView textQuestion, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) {
@@ -49,7 +49,7 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
         }
 
         textQuestion.setText(question.getText());
-        questionNumber.setText("Q" + (Question.position + 1));
+        questionNumber.setText("Q" + (QuestionActivity.position + 1));
         rb1.setText(question.getQuestions(0));
         rb2.setText(question.getQuestions(1));
         rb3.setText(question.getQuestions(2));
@@ -68,7 +68,7 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Trivia... voids) {
+    protected Void doInBackground(Question... voids) {
 
         question = voids[0];
 

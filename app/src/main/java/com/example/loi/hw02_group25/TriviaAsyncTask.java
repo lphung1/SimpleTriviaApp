@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by Loi on 3/4/2018.
  */
 
-public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia>> {
+public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Question>> {
 
     ProgressDialog dialog;
     TextView textView;
@@ -42,9 +42,9 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
     }
 
     @Override
-    protected ArrayList<Trivia> doInBackground(String... params) {
+    protected ArrayList<Question> doInBackground(String... params) {
         HttpURLConnection connection = null;
-        ArrayList<Trivia> result = new ArrayList<Trivia>();
+        ArrayList<Question> result = new ArrayList<Question>();
 
         try {
             URL url = new URL(params[0]);
@@ -62,7 +62,7 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
                     JSONObject questionsJSONObject = questions.optJSONObject(i);
                     JSONObject choicesJSONObject = questionsJSONObject.optJSONObject("choices"); //sub objects
 
-                    Trivia t = new Trivia();
+                    Question t = new Question();
 
                     t.setId(questionsJSONObject.optString("id"));
                     t.setText(questionsJSONObject.optString("text"));
@@ -100,7 +100,7 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
     }
 
     @Override
-    protected void onPostExecute(ArrayList<Trivia> result) {
+    protected void onPostExecute(ArrayList<Question> result) {
         super.onPostExecute(result);
         MainActivity.triviaArrayList = result;
 

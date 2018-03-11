@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ArrayList<Trivia> triviaArrayList = new ArrayList<Trivia>();
+    public static ArrayList<Question> triviaArrayList = new ArrayList<Question>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.startTriviaButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Question.class);
+                Intent intent = new Intent(MainActivity.this, QuestionActivity.class);
 
                 startActivity(intent);
 
