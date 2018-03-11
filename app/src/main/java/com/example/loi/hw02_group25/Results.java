@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,10 +16,13 @@ public class Results extends AppCompatActivity {
     float percent;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        ProgressBar pb = findViewById(R.id.percentageBar);
 
         TextView percentageCorrect = (TextView) findViewById(R.id.percentageText);
 
@@ -30,6 +34,9 @@ public class Results extends AppCompatActivity {
             percent = (correct * 100) / total;
 
             percentageCorrect.setText(  percent + "&" );
+
+            pb.setMax(total);
+            pb.setProgress(correct);
         }
         else{
             Log.d("Intent not received", "Correct= " + Question.correctAnswers);
@@ -37,6 +44,8 @@ public class Results extends AppCompatActivity {
             total = MainActivity.triviaArrayList.size();
             percent = (correct * 100) / total;
             percentageCorrect.setText(percent + "%");
+            pb.setMax(total);
+            pb.setProgress(correct);
         }
 
 
