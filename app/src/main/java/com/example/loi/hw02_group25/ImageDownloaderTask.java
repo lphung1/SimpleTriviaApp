@@ -1,10 +1,13 @@
 package com.example.loi.hw02_group25;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import java.io.InputStream;
@@ -19,14 +22,24 @@ import java.net.URL;
 class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
 
     private final WeakReference<ImageView> imageViewReference;
+    ProgressDialog dialog;
 
-    public ImageDownloaderTask(ImageView imageView) {
+    public ImageDownloaderTask(ImageView imageView, Context context) {
         imageViewReference = new WeakReference<ImageView>(imageView);
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Loading Image");
+        dialog.setCancelable(false);
     }
 
     @Override
     protected Bitmap doInBackground(String... params) {
         return downloadBitmap(params[0]);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        dialog.show();
     }
 
     @Override
@@ -47,7 +60,12 @@ class ImageDownloaderTask extends AsyncTask<String, Void, Bitmap> {
                 }
             }
         }
-    }
+
+        if(dialog.isShowing()){
+            dialog.dismiss();
+        }
+
+    }//end post execute
 
     private Bitmap downloadBitmap(String url) {
         HttpURLConnection urlConnection = null;

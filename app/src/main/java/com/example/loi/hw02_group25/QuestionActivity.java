@@ -37,7 +37,7 @@ public class QuestionActivity extends AppCompatActivity {
         question = MainActivity.triviaArrayList.get(position);
 
 
-        new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
+        new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4, this).execute(question);
 
         final CountDownTimer timer = new CountDownTimer(120000, 1000) {
             @Override
@@ -96,7 +96,7 @@ public class QuestionActivity extends AppCompatActivity {
                     position += 1;
                     Question question = MainActivity.triviaArrayList.get(position);
                     rg.clearCheck();
-                    new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4).execute(question);
+                    new NextQuestionAsync(textQuestionNumber, triviaImage, textQuestion, rb1, rb2, rb3, rb4, QuestionActivity.this).execute(question);
                 }
 
 

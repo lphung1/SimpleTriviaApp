@@ -1,5 +1,6 @@
 package com.example.loi.hw02_group25;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,8 +21,9 @@ public class NextQuestionAsync extends AsyncTask<Question, Void, Void> {
     RadioButton rb4;
     Question question;
     TextView questionNumber;
+    Context context;
 
-    public NextQuestionAsync(TextView questionNumber, ImageView triviaImage, TextView textQuestion, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4) {
+    public NextQuestionAsync(TextView questionNumber, ImageView triviaImage, TextView textQuestion, RadioButton rb1, RadioButton rb2, RadioButton rb3, RadioButton rb4, Context c) {
         this.triviaImage = triviaImage;
         this.textQuestion = textQuestion;
         this.rb1 = rb1;
@@ -29,11 +31,13 @@ public class NextQuestionAsync extends AsyncTask<Question, Void, Void> {
         this.rb3 = rb3;
         this.rb4 = rb4;
         this.questionNumber = questionNumber;
+        context = c;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        triviaImage.setImageResource(R.drawable.loading);
     }
 
     @Override
@@ -42,7 +46,7 @@ public class NextQuestionAsync extends AsyncTask<Question, Void, Void> {
 
 
         if(question.getImageUrl() != null){
-            new ImageDownloaderTask(triviaImage).execute(question.getImageUrl());
+            new ImageDownloaderTask(triviaImage, context).execute(question.getImageUrl());
         }
         else{
             triviaImage.setImageResource(R.drawable.default_question);
