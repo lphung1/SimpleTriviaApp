@@ -49,7 +49,7 @@ public class NextQuestionAsync extends AsyncTask<Trivia, Void, Void> {
         }
 
         textQuestion.setText(question.getText());
-        questionNumber.setText("Q" + (question.getId() + 1));
+        questionNumber.setText("Q" + (Question.position + 1));
         rb1.setText(question.getQuestions(0));
         rb2.setText(question.getQuestions(1));
         rb3.setText(question.getQuestions(2));

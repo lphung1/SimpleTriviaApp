@@ -12,6 +12,9 @@ import java.util.ArrayList;
 public class Results extends AppCompatActivity {
 
     int correct, total = 0;
+    float percent;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,17 +24,19 @@ public class Results extends AppCompatActivity {
 
         if (getIntent() != null && getIntent().getExtras() != null) {
 
+            Log.d("Intent recieved", "Extra =" + getIntent().getExtras().getInt("c"));
             correct = (getIntent().getExtras().getInt("c"));
             total = (MainActivity.triviaArrayList.size());
+            percent = (correct * 100) / total;
 
-            Log.d("Number Correct", "" + correct);
-
-            percentageCorrect.setText("" + correct/total);
+            percentageCorrect.setText(  percent + "&" );
         }
         else{
-            correct = 0;
-            total = 0;
-            percentageCorrect.setText("0" + "%");
+            Log.d("Intent not received", "Correct= " + Question.correctAnswers);
+            correct = Question.correctAnswers;
+            total = MainActivity.triviaArrayList.size();
+            percent = (correct * 100) / total;
+            percentageCorrect.setText(percent + "%");
         }
 
 
@@ -56,8 +61,10 @@ public class Results extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("Number Correct", "" + correct);
                 Log.d("Total", "" + total);
+                Log.d("Percent","" + percent);
             }
         });
+
 
 
     }

@@ -67,7 +67,7 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
                     t.setId(questionsJSONObject.optString("id"));
                     t.setText(questionsJSONObject.optString("text"));
                     t.setText(questionsJSONObject.optString("text"));
-                    t.setAnswer(questionsJSONObject.optString("answer"));
+                    t.setAnswer(choicesJSONObject.optString("answer"));
                     if(questionsJSONObject.optString("image").startsWith("http"))
                     {
                         t.setImageUrl(questionsJSONObject.optString("image"));
@@ -77,6 +77,7 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Trivia
                     Log.d("JsonName", "" + questionsJSONObject.getString("text"));
                     Log.d("Jsonid", "" + questionsJSONObject.getString("id"));
                     Log.d("JsonChoice", "" + choicesJSONObject.getString("choice"));
+                    Log.d("Answer", "" + choicesJSONObject.getString("answer"));
 
 
                     result.add(t);
