@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<Question> triviaArrayList = new ArrayList<Question>();
+    ImageView triviaIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Welcome To Trivia");
         final TextView textView = findViewById(R.id.readyStatusText);
         final Button button = findViewById(R.id.startTriviaButton);
+        triviaIcon = findViewById(R.id.imageView);
 
         if(isConnected()){
-            new TriviaAsyncTask(MainActivity.this, textView, button).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+            new TriviaAsyncTask(MainActivity.this, textView, button, triviaIcon).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
         }
         else{
             Toast.makeText(MainActivity.this, "Not connected to internet", Toast.LENGTH_LONG).show();
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(isConnected()){
-                    new TriviaAsyncTask(MainActivity.this, textView, button).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
+                    new TriviaAsyncTask(MainActivity.this, textView, button, triviaIcon).execute("http://dev.theappsdr.com/apis/trivia_json/index.php");
                 }
                 else{
                     Toast.makeText(MainActivity.this, "Not connected to internet", Toast.LENGTH_LONG).show();

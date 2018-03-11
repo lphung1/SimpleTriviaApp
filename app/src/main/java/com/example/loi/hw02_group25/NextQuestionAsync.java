@@ -37,7 +37,7 @@ public class NextQuestionAsync extends AsyncTask<Question, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        triviaImage.setImageResource(R.drawable.loading);
+        triviaImage.setImageResource(R.drawable.giphy);
     }
 
     @Override

@@ -7,10 +7,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.widget.CircularProgressDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import static android.icu.text.DisplayContext.LENGTH_SHORT;
 
 /**
  * Created by Loi on 3/4/2018.
@@ -29,7 +33,9 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Questi
     ProgressDialog dialog;
     TextView textView;
     Button button;
-    public TriviaAsyncTask(Context context, TextView status, Button button) {
+    ImageView imageView;
+    Context context;
+    public TriviaAsyncTask(Context context, TextView status, Button button, ImageView image) {
 
         this.button = button;
 
@@ -37,7 +43,9 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Questi
 
         textView.setText("Loading Trivia");
 
+        imageView = image;
         button.setEnabled(false);
+        this.context = context;
 
     }
 
@@ -97,6 +105,7 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Questi
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        imageView.setImageResource(R.drawable.giphy);
     }
 
     @Override
@@ -106,6 +115,10 @@ public class TriviaAsyncTask extends AsyncTask<String, Integer, ArrayList<Questi
 
         textView.setText("Trivia Ready!");
         button.setEnabled(true);
+        imageView.setImageResource(R.drawable.trivia);
+        Toast t = Toast.makeText(context, "Tap Trivia Image to Reload", Toast.LENGTH_SHORT);
+        t.setGravity(Gravity.CENTER, 0 , 180);
+        t.show();
 
 
     }

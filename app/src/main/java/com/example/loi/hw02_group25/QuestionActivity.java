@@ -123,7 +123,7 @@ public class QuestionActivity extends AppCompatActivity {
             return "4";
         }
         else
-            return "";
+            return "-";
 
     }
 
